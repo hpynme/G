@@ -1,12 +1,33 @@
 import os
 import logging
+# অন্য সব import এখানে
+from dotenv import  load_dotenv #
+
 import asyncio
 import random
 import time
 from datetime import datetime, timedelta
 from PIL import Image, ImageDraw, ImageFont
 import io
-import math # ক্যালকুলেটরের জন্য
+import math 
+
+# .env ফাইল থেকে এনভায়রনমেন্ট ভেরিয়েবল লোড করুন
+load_dotenv()
+
+# --- ১. লগিং সেটআপ ---
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
+)
+logging.getLogger('httpx').setLevel(logging.WARNING)
+logger = logging.getLogger(__name__)
+
+# --- ২. এনভায়রনমেন্ট ভেরিয়েবল অ্যাক্সেস করা ---
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+WEBHOOK_URL = os.environ.get("WEBHOOK_URL")
+PORT = int(os.environ.get("PORT", "8080")) # যদি PORT সেট না থাকে, ডিফল্ট 8080 ব্যবহার করবে
+# অন্যান্য ভেরিয়েবলও একইভাবে অ্যাক্সেস করতে পারেন
+# যেমন: MY_API_KEY = os.environ.get("MY_API_KEY")
+
 
 from telegram import (
     Update,
